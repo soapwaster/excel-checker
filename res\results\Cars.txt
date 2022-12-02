@@ -1,0 +1,62 @@
+{
+    "SHEET": [
+        {
+            "Cars": {
+                "ROW": [
+                    {
+                        "Row 5": {}
+                    },
+                    {
+                        "Row 6": {
+                            "BLOCKING": [
+                                "< C_01, Vehicle HP/Power cannot be <= 1 >"
+                            ]
+                        }
+                    },
+                    {
+                        "Row 7": {}
+                    },
+                    {
+                        "Row 8": {
+                            "BLOCKING": [
+                                "< C_01, Vechicle type cannot be Book. Vehicle HP/Power cannot be <= 1 >"
+                            ]
+                        }
+                    }
+                ],
+                "METADATA": [
+                    {
+                        "BLOCKING": [
+                            "< C_02, Sheet is not protected >"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "Bike": {
+                "ROW": [
+                    {
+                        "Row 5": {}
+                    },
+                    {
+                        "Row 6": {}
+                    },
+                    {
+                        "Row 7": {}
+                    },
+                    {
+                        "Row 8": {}
+                    }
+                ],
+                "METADATA": [
+                    {
+                        "BLOCKING": [
+                            "< C_02, Sheet is not protected >"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

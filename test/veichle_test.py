@@ -8,7 +8,8 @@ from excel_checker import ExcelChecker
 def test_vehicle():
 
     filename = "Cars"
-    excel_checker = ExcelChecker(f"res\\sources\\test\\{filename}.xlsx")
+
+    excel_checker = ExcelChecker("res/sources/test/Cars.xlsx")
 
     workbook = excel_checker.wrkbk
     sheets = [workbook["Cars"], workbook["Bike"]]

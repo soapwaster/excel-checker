@@ -8,8 +8,9 @@
         "test",
         "-s"
     ],
-    "terminal.integrated.env.windows": {
-        "PYTHONPATH": "${workspaceFolder}/src;${workspaceFolder}/test"
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "${workspaceFolder}/src:${workspaceFolder}/test",
+        "WSF": "${workspaceFolder}"
     },
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
