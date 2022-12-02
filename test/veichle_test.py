@@ -35,7 +35,7 @@ def test_vehicle():
         sc.addChecker(MetadataChecker(sheet, ["C_02"]))
         wc.addChecker(sc)
     wc.check()
-    wc.exportCheckResult(f"res\\results\{filename}.txt")
+    wc.exportCheckResult(f"res/results/{filename}.txt")
     print(f"{filename} - {wc.checkerErrors}")
 
 
