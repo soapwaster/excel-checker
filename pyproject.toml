@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "excel-checker"
+version = "0.1.0"
+description = "Check your excel file via user defined python scripts"
+authors = ["soapwaster, angelocatalani"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+openpyxl = "^3.0.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

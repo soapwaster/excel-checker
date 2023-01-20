@@ -83,7 +83,7 @@ class Checker:
         """
         checks = []
         for check in checkList:
-            module = importlib.import_module(f"checks.{check}")
+            module = importlib.import_module(f"excel_checker.checks.{check}")
             class_ = getattr(module, check)
             instance = class_(self.sheet, row)
             checks.append(instance)
