@@ -37,6 +37,3 @@ def test_vehicle():
     wc.check()
     wc.exportCheckResult(f"res/results/{filename}.txt")
     print(f"{filename} - {wc.checkerErrors}")
-
-
-test_vehicle()
