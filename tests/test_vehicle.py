@@ -1,7 +1,7 @@
-from checkers.metadata_checker import MetadataChecker
-from checkers.row_checker import RowChecker
-from checkers.sheet_checker import SheetChecker
-from checkers.document_checker import DocumentChecker
+from excel_checker import MetadataChecker
+from excel_checker import RowChecker
+from excel_checker import SheetChecker
+from excel_checker import DocumentChecker
 from excel_checker import ExcelChecker
 
 
@@ -37,6 +37,3 @@ def test_vehicle():
     wc.check()
     wc.exportCheckResult(f"res/results/{filename}.txt")
     print(f"{filename} - {wc.checkerErrors}")
-
-
-test_vehicle()

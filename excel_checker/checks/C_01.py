@@ -1,5 +1,5 @@
-from check import Check
-from errortypes import CheckError
+from excel_checker.check import Check
+from excel_checker.errortypes import CheckError
 
 
 class C_01(Check):

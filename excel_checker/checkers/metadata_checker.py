@@ -1,5 +1,5 @@
-from checkers.checker import Checker
-from checkertypes import CheckerType
+from excel_checker.checkers.checker import Checker
+from excel_checker.checkertypes import CheckerType
 from typing import List
 
 
