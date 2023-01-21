@@ -2,6 +2,7 @@
     "python.analysis.extraPaths": [
         "./src/checks",
         "./src/checkers",
+        "./src/visitorum",
         "./src/"
     ],
     "python.testing.pytestArgs": [
@@ -9,7 +10,11 @@
         "-s"
     ],
     "terminal.integrated.env.osx": {
-        "PYTHONPATH": "${workspaceFolder}/src:${workspaceFolder}/test",
+        "PYTHONPATH": "${workspaceFolder}\\src:${workspaceFolder}\\test",
+        "WSF": "${workspaceFolder}"
+    },
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}\\src;${workspaceFolder}\\test",
         "WSF": "${workspaceFolder}"
     },
     "python.testing.unittestEnabled": false,
