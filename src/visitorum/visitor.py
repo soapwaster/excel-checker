@@ -16,7 +16,7 @@ class Visitor(ABC):
         pass
 
     @abstractmethod
-    def visit_col(self, element: CCol) -> None:
+    def visit_column(self, element: CCol) -> None:
         pass
 
     @abstractmethod

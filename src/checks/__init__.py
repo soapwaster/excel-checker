@@ -1,2 +1,0 @@
-class XXX:
-    f = "cia"

@@ -4,17 +4,12 @@ class Check:
         self.sheet = sheet
         self.correct = None
         self.type = self._type()
-        self.columns = self._columns_checked()
         self.error = ""
 
     def _code(self):
         pass
 
     def _type(self):
-        pass
-
-    # returns the excel codes of the columns to check
-    def _columns_checked(self):
         pass
 
     # Code to execute during test

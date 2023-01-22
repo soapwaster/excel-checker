@@ -20,7 +20,7 @@ class CWorkbook(Component):
     
     def __init__(self, wbk: op.Workbook):
         self.wbk = wbk
-        self.sheets : List[CWorksheet] = []
+        self.sheets: List[CWorksheet] = []
 
     def accept(self, visitor: Visitor) -> None:
         return visitor.visit_workbook(self)
@@ -33,7 +33,7 @@ class CWorkbook(Component):
             ws = CWorksheet(self.wbk[name])
             self.sheets.append(ws)
             return ws 
-        else :
+        else:
             print(f"Sheet {name} not present")
 
     def addAllSheets(self, name: str) -> List[CWorksheet]:
@@ -44,20 +44,20 @@ class CWorksheet(Component):
     
     def __init__(self, wsh: Worksheet):
         self.wsh = wsh
-        self.rows : List[] = []
-        self.columns = []
-        self.cells = []
+        self.rows : List[CRow] = []
+        self.columns : List[CCol] = []
+        self.cells : List[CCell] = []
 
     def accept(self, visitor: Visitor) -> None:
         return visitor.visit_worksheet(self)
 
     def getTitle(self) -> str:
-        return self.title
+        return self.wsh.title
 
     def addRow(self, row: int) -> CRow:
-       r = CRow(self.wsh, row)
-       self.rows.append(r)
-       return r
+        r = CRow(self.wsh, row)
+        self.rows.append(r)
+        return r
 
     def addCol(self, col: int) -> CCol:
        c = CCol(self.wsh, col)
@@ -109,7 +109,7 @@ class CCell(Component):
         self.sheet = sheet
 
     def accept(self, visitor: Visitor) -> None:
-        visitor.visit_cell(self)
+        return visitor.visit_cell(self)
 
     def getPosition(self) -> str:
         return (self.i, self.j)
