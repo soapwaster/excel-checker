@@ -2,7 +2,7 @@
 name = "excel-checker"
 version = "0.1.0"
 description = "Check your excel file via user defined python scripts"
-authors = ["soapwaster, angelocatalani"]
+authors = ["soapwaster", "angelocatalani"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
