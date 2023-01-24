@@ -15,9 +15,9 @@ class Component(ABC):
     @abstractmethod
     def accept(self, visitor: Visitor) -> None:
         pass
-    
+
+
 class CWorkbook(Component):
-    
     def __init__(self, wbk: op.Workbook):
         self.wbk = wbk
         self.sheets: List[CWorksheet] = []
@@ -27,12 +27,12 @@ class CWorkbook(Component):
 
     def getTitle(self) -> str:
         return "Title still to give"
-    
+
     def addSheet(self, name: str) -> CWorksheet:
         if name in self.wbk.sheetnames:
             ws = CWorksheet(self.wbk[name])
             self.sheets.append(ws)
-            return ws 
+            return ws
         else:
             print(f"Sheet {name} not present")
 
@@ -41,13 +41,13 @@ class CWorkbook(Component):
             self.sheets.append(CWorksheet(self.wbk[name]))
         return self.sheets
 
+
 class CWorksheet(Component):
-    
     def __init__(self, wsh: Worksheet):
         self.wsh = wsh
-        self.rows : List[CRow] = []
-        self.columns : List[CCol] = []
-        self.cells : List[CCell] = []
+        self.rows: List[CRow] = []
+        self.columns: List[CCol] = []
+        self.cells: List[CCell] = []
 
     def accept(self, visitor: Visitor) -> None:
         return visitor.visit_worksheet(self)
@@ -61,18 +61,18 @@ class CWorksheet(Component):
         return r
 
     def addCol(self, col: int) -> CCol:
-       c = CCol(self.wsh, col)
-       self.columns.append(c)
-       return c
-    
+        c = CCol(self.wsh, col)
+        self.columns.append(c)
+        return c
+
     def addCell(self, row: int, col: int) -> CCell:
-       c = CCell(self.wsh, row, col)
-       self.cells.append(c)
-       return c
+        c = CCell(self.wsh, row, col)
+        self.cells.append(c)
+        return c
+
 
 class CRow(Component):
-    
-    def __init__(self, sheet: Worksheet, rownum : int):
+    def __init__(self, sheet: Worksheet, rownum: int):
         self.i = rownum
         self.sheet = sheet
 
@@ -81,13 +81,13 @@ class CRow(Component):
 
     def getRowNum(self) -> str:
         return self.i
-    
-    def getColInRow(self, col:int) -> Any:
+
+    def getColInRow(self, col: int) -> Any:
         return self.sheet.cell(self.i, col).value
 
+
 class CCol(Component):
-    
-    def __init__(self, sheet: Worksheet, colnum : int):
+    def __init__(self, sheet: Worksheet, colnum: int):
         self.j = colnum
         self.sheet = sheet
 
@@ -96,14 +96,13 @@ class CCol(Component):
 
     def getColNum(self) -> str:
         return self.j
-    
-    def getRowInCol(self, row:int) -> Any:
+
+    def getRowInCol(self, row: int) -> Any:
         return self.sheet.cell(row, self.j).value
 
 
 class CCell(Component):
-    
-    def __init__(self, sheet: Worksheet, rownum : int, colnum : int, alias=""):
+    def __init__(self, sheet: Worksheet, rownum: int, colnum: int, alias=""):
         self.i = rownum
         self.j = colnum
         self.alias = alias
@@ -114,7 +113,7 @@ class CCell(Component):
 
     def getPosition(self) -> str:
         return (self.i, self.j)
-    
+
     def getAlias(self) -> str:
         return self.alias
 

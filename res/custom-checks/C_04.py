@@ -13,5 +13,7 @@ class C_04(CellCheck):
     # returns self.correct
     def perform(self):
         self.correct = True
-        print(f"Checking cell {self.cell.getPosition()} in sheet {self.cell.sheet.title} with value {self.cell.getValue()}")
+        print(
+            f"Checking cell {self.cell.getPosition()} in sheet {self.cell.sheet.title} with value {self.cell.getValue()}"
+        )
         return self.cell.getValue()

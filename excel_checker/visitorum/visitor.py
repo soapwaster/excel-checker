@@ -1,8 +1,8 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 
-class Visitor(ABC):
 
+class Visitor(ABC):
     @abstractmethod
     def visit_workbook(self, element: CWorkbook) -> None:
         pass
@@ -10,7 +10,7 @@ class Visitor(ABC):
     @abstractmethod
     def visit_worksheet(self, element: CWorksheet) -> None:
         pass
-    
+
     @abstractmethod
     def visit_row(self, element: CRow) -> None:
         pass

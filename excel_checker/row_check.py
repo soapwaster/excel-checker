@@ -12,4 +12,3 @@ class RowCheck(Check):
     # returns the excel codes of the columns to check
     def _columns_checked(self):
         pass
-

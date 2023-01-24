@@ -15,7 +15,7 @@ def test_vehicle():
     r1 = ws1.addRow(5)
     r2 = ws1.addRow(6)
     c1 = ws1.addCol(4)
-    c = ws1.addCell(6,4)
+    c = ws1.addCell(6, 4)
 
     cv = CheckerVisitor("res.custom-checks")
     wc.accept(cv)
