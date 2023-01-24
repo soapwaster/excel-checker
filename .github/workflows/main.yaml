@@ -46,8 +46,8 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Run test
-          run: |
-            poetry run pytest
+        run: |
+          poetry run pytest
 
   format:
     runs-on: macos-latest
