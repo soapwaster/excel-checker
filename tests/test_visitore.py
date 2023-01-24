@@ -1,5 +1,5 @@
-from visitorum.components import CWorkbook
-from visitorum.checker_visitor import CheckerVisitor
+from excel_checker.visitorum.components import CWorkbook
+from excel_checker.visitorum.checker_visitor import CheckerVisitor
 from excel_checker import ExcelChecker
 
 
@@ -17,8 +17,5 @@ def test_vehicle():
     c1 = ws1.addCol(4)
     c = ws1.addCell(6,4)
 
-    cv = CheckerVisitor("custom-checks")
+    cv = CheckerVisitor("res.custom-checks")
     wc.accept(cv)
-
-
-test_vehicle()

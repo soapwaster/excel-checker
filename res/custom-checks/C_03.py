@@ -1,6 +1,5 @@
-from check import Check
-from col_check import ColCheck
-from visitorum.components import CCol
+from excel_checker.col_check import ColCheck
+from excel_checker.visitorum.components import CCol
 
 
 class C_03(ColCheck):

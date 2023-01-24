@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Any, List
 import openpyxl as op
 from openpyxl.worksheet.worksheet import Worksheet
-from visitorum.visitor import Visitor
+from excel_checker.visitorum.visitor import Visitor
 
 
 class Component(ABC):
@@ -39,6 +39,7 @@ class CWorkbook(Component):
     def addAllSheets(self, name: str) -> List[CWorksheet]:
         for name in self.wbk.sheetnames:
             self.sheets.append(CWorksheet(self.wbk[name]))
+        return self.sheets
 
 class CWorksheet(Component):
     

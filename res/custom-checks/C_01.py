@@ -1,6 +1,5 @@
-from check import Check
-from row_check import RowCheck
-from visitorum.components import CRow
+from excel_checker.row_check import RowCheck
+from excel_checker.visitorum.components import CRow
 
 
 class C_01(RowCheck):

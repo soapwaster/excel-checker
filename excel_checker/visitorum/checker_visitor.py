@@ -1,7 +1,7 @@
 import importlib
 from typing import Any
-from visitorum.visitor import Visitor
-from visitorum.components import CWorkbook, CCell, CCol, CRow, CWorksheet
+from excel_checker.visitorum.visitor import Visitor
+from excel_checker.visitorum.components import CWorkbook, CCell, CCol, CRow, CWorksheet
 
 class CheckerVisitor(Visitor):
 

@@ -1,5 +1,5 @@
-from cell_check import CellCheck
-from visitorum.components import CCell
+from excel_checker.cell_check import CellCheck
+from excel_checker.visitorum.components import CCell
 
 
 class C_04(CellCheck):

@@ -1,5 +1,5 @@
-from check import Check
-from visitorum.components import CCol
+from excel_checker.check import Check
+from excel_checker.visitorum.components import CCol
 
 
 class ColCheck(Check):
@@ -11,4 +11,3 @@ class ColCheck(Check):
     # returns the excel codes of the columns to check
     def _rows_checked(self):
         pass
-
