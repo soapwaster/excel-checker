@@ -20,3 +20,5 @@ dev/
 .coverage
 *.egg-info/
 /.idea/*
+.vscode/
+src/
