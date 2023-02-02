@@ -1,3 +1,3 @@
 # Excel cheker
 
-![example workflow](https://github.com/github/workflows/main.yml/badge.svg)
+![example workflow](https://github.com/github/workflows/main.yaml/badge.svg)
