@@ -1,3 +1,3 @@
 # Excel cheker
 
-![example workflow](https://github.com/github/workflows/main.yaml/badge.svg)
+![BT](https://github.com/soapwaster/excel-checker/actions/workflows/main.yaml/badge.svg)
