@@ -1,4 +1,4 @@
-name: 'Poetry Install'
+name: 'Build Application'
 description: 'Build application'
 runs:
   using: "composite"
