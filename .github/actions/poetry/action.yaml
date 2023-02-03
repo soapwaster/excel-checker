@@ -1,5 +1,5 @@
 name: 'Build Application'
-description: 'Build application'
+description: 'Build the application with Poetry'
 runs:
   using: "composite"
   steps:
