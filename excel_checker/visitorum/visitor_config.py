@@ -32,7 +32,7 @@ def create_structure(file, configFile):
                         ws.addCell(i,j)
     return wkb
 
-def load_checks(visitor, workbook : CWorkbook, configFile):
+def load_checks(visitor, configFile):
     data = {}
     with open(configFile, "r") as yamlfile:
         data = yaml.load(yamlfile, Loader=yaml.FullLoader)
@@ -41,8 +41,6 @@ def load_checks(visitor, workbook : CWorkbook, configFile):
     if "Sheets" in data:
         for sheet in data["Sheets"]:
             sname = sheet["name"]
-            if sname not in workbook.wbk.sheetnames:
-                continue
             visitor.wsc[sname] = sheet["checks"]
             if "Rows" in sheet:
                 visitor.rc[sname] = {}
@@ -73,5 +71,5 @@ def load_checks(visitor, workbook : CWorkbook, configFile):
     print(visitor.rc)
     print(visitor.cc)
     print(visitor.cellc)
-
+    print("done")
 
