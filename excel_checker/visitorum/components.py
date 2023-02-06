@@ -48,6 +48,17 @@ class CWorkbook(Component):
         if not isinstance(other, type(self)): return NotImplemented
         return self.wbk == other.wbk
 
+    def __str__(self):
+        res = ""
+        for sheet in self.sheets:
+            res += sheet.__str__()
+        return res
+
+    def __repr__(self):
+        res = ""
+        for sheet in self.sheets:
+            res += sheet.__repr__()
+        return res
 
 class CWorksheet(Component):
     def __init__(self, wsh: Worksheet):
@@ -83,6 +94,12 @@ class CWorksheet(Component):
     def __eq__(self, other):
         if not isinstance(other, type(self)): return NotImplemented
         return self.wsh == other.wsh
+
+    def __str__(self):
+        return f"Sheet {self.getTitle()}:\n\tRows : {self.rows}\n\tColumns : {self.columns}\n\tCells : {self.cells}"
+
+    def __repr__(self):
+        return f"Sheet {self.getTitle()}:\n\tRows : {self.rows}\n\tColumns : {self.columns}\n\tCells : {self.cells}"
 
 class CRow(Component):
     def __init__(self, sheet: Worksheet, rownum: int):
