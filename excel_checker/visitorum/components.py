@@ -38,8 +38,15 @@ class CWorkbook(Component):
 
     def addAllSheets(self, name: str) -> List[CWorksheet]:
         for name in self.wbk.sheetnames:
-            self.sheets.append(CWorksheet(self.wbk[name]))
+            self.addSheet(name)
         return self.sheets
+
+    def __hash__(self):
+        return hash((self.wbk))
+
+    def __eq__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.wbk == other.wbk
 
 
 class CWorksheet(Component):
@@ -69,7 +76,13 @@ class CWorksheet(Component):
         c = CCell(self.wsh, row, col)
         self.cells.append(c)
         return c
+    
+    def __hash__(self):
+        return hash((self.wsh))
 
+    def __eq__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.wsh == other.wsh
 
 class CRow(Component):
     def __init__(self, sheet: Worksheet, rownum: int):
@@ -84,6 +97,13 @@ class CRow(Component):
 
     def getColInRow(self, col: int) -> Any:
         return self.sheet.cell(self.i, col).value
+    
+    def __hash__(self):
+        return hash((self.sheet, self.i))
+
+    def __eq__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.sheet == other.sheet and self.i == other.i
 
 
 class CCol(Component):
@@ -100,6 +120,12 @@ class CCol(Component):
     def getRowInCol(self, row: int) -> Any:
         return self.sheet.cell(row, self.j).value
 
+    def __hash__(self):
+        return hash((self.sheet, self.j))
+
+    def __eq__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.sheet == other.sheet and self.j == other.j
 
 class CCell(Component):
     def __init__(self, sheet: Worksheet, rownum: int, colnum: int, alias=""):
@@ -119,3 +145,10 @@ class CCell(Component):
 
     def getValue(self) -> Any:
         return self.sheet.cell(self.i, self.j).value
+    
+    def __hash__(self):
+        return hash((self.sheet, self.i, self.j))
+
+    def __eq__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.sheet == other.sheet and self.i == other.i and self.j == other.j
