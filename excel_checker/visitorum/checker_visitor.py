@@ -1,6 +1,7 @@
 import importlib
 from typing import Any
 import yaml
+import excel_checker.visitorum.visitor_config as ic
 from excel_checker.visitorum.visitor import Visitor
 from excel_checker.visitorum.components import CWorkbook, CCell, CCol, CRow, CWorksheet
 
@@ -16,10 +17,10 @@ class CheckerVisitor(Visitor):
         self.cc = {}
         self.cellc = {}
         self.res = {}
-        self.load_checks()
 
     def visit_workbook(self, wbk: CWorkbook) -> None:
         val = {}
+        self.load_checks(wbk)
         checks = self.__instantiate_checks(self.wbc, wbk)
         val[f"WORKBOOK-CHECKS"] = self.run_checks(checks)
         for sheet in wbk.sheets:
@@ -61,22 +62,8 @@ class CheckerVisitor(Visitor):
             checks.append(instance)
         return checks
 
-    def load_checks(self):
-        data = {}
-        with open(self.checkConfig, "r") as yamlfile:
-            data = yaml.load(yamlfile, Loader=yaml.FullLoader)
-        self.wbc = data["Workbook"]["checks"]
-        for sheet in data["Sheet"]:
-            self.wsc[sheet["name"]] = sheet["checks"]
-        for row in data["Rows"]:
-            for i in range(row["from"], row["to"]+1):
-                self.rc[i] = row["checks"]
-        if "Columns" in data:
-            for col in data.get["Columns"]:
-                for i in range(col["from"], col["to"]):
-                    self.cc[i] = col["checks"]
-        self.cellc = ["C_04"]
-
+    def load_checks(self, wkb):
+        ic.load_checks(self, wkb, self.checkConfig)
 
     def run_checks(self, checks):
         val = {}
