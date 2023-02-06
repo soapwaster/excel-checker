@@ -1,18 +1,20 @@
 import importlib
 from typing import Any
+import yaml
 from excel_checker.visitorum.visitor import Visitor
 from excel_checker.visitorum.components import CWorkbook, CCell, CCol, CRow, CWorksheet
 
 
 class CheckerVisitor(Visitor):
-    def __init__(self, pathToChecks) -> None:
+    def __init__(self, pathToChecks, checkConfig) -> None:
         super().__init__()
         self.pathToChecks = pathToChecks  # it has to be a module
+        self.checkConfig = checkConfig  # yaml file containing check configurations
         self.wbc = []
-        self.wsc = []
-        self.rc = []
-        self.cc = []
-        self.cellc = []
+        self.wsc = {}
+        self.rc = {}
+        self.cc = {}
+        self.cellc = {}
         self.res = {}
         self.load_checks()
 
@@ -26,7 +28,7 @@ class CheckerVisitor(Visitor):
 
     def visit_worksheet(self, wsh: CWorksheet) -> None:
         val = {}
-        checks = self.__instantiate_checks(self.wsc, wsh)
+        checks = self.__instantiate_checks(self.wsc[wsh.getTitle()], wsh)
         val[f"SHEET-CHECKS"] = self.run_checks(checks)
         for row in wsh.rows:
             val[f"ROW {row.i}"] = row.accept(self)
@@ -37,11 +39,11 @@ class CheckerVisitor(Visitor):
         return val
 
     def visit_row(self, element: CRow) -> Any:
-        checks = self.__instantiate_checks(self.rc, element)
+        checks = self.__instantiate_checks(self.rc[element.i], element)
         return self.run_checks(checks)
 
     def visit_column(self, element: CCol) -> Any:
-        checks = self.__instantiate_checks(self.cc, element)
+        checks = self.__instantiate_checks(self.cc[element.j], element)
         return self.run_checks(checks)
 
     def visit_cell(self, element: CCell) -> Any:
@@ -60,10 +62,21 @@ class CheckerVisitor(Visitor):
         return checks
 
     def load_checks(self):
-        self.rc = ["C_01"]
-        self.cc = ["C_03"]
+        data = {}
+        with open(self.checkConfig, "r") as yamlfile:
+            data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+        self.wbc = data["Workbook"]["checks"]
+        for sheet in data["Sheet"]:
+            self.wsc[sheet["name"]] = sheet["checks"]
+        for row in data["Rows"]:
+            for i in range(row["from"], row["to"]+1):
+                self.rc[i] = row["checks"]
+        if "Columns" in data:
+            for col in data.get["Columns"]:
+                for i in range(col["from"], col["to"]):
+                    self.cc[i] = col["checks"]
         self.cellc = ["C_04"]
-        self.wsc = ["C_02"]
+
 
     def run_checks(self, checks):
         val = {}
