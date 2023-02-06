@@ -1,0 +1,8 @@
+Workbook:
+    {name :  Cars, checks : []}
+Sheet:
+    - {name : Cars, checks : [C_02]}
+Rows: 
+    - {from: 2, to: 30, checks : [C_01]}
+    - {from: 3, to: 3, checks: [C_01]}
+    

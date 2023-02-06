@@ -17,5 +17,5 @@ def test_vehicle():
     c1 = ws1.addCol(4)
     c = ws1.addCell(6, 4)
 
-    cv = CheckerVisitor("res.custom-checks")
+    cv = CheckerVisitor("res.custom-checks", "res/custom-checks/config.yaml")
     wc.accept(cv)
