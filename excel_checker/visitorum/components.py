@@ -1,10 +1,10 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import Any, List
+from typing import Any, List, Set
 import openpyxl as op
 from openpyxl.worksheet.worksheet import Worksheet
 from excel_checker.visitorum.visitor import Visitor
-
+from sortedcollections import SortedSet
 
 class Component(ABC):
     """
@@ -20,7 +20,7 @@ class Component(ABC):
 class CWorkbook(Component):
     def __init__(self, wbk: op.Workbook):
         self.wbk = wbk
-        self.sheets: List[CWorksheet] = []
+        self.sheets: Set[CWorksheet] = set()
 
     def accept(self, visitor: Visitor) -> None:
         return visitor.visit_workbook(self)
@@ -31,7 +31,7 @@ class CWorkbook(Component):
     def addSheet(self, name: str) -> CWorksheet:
         if name in self.wbk.sheetnames:
             ws = CWorksheet(self.wbk[name])
-            self.sheets.append(ws)
+            self.sheets.add(ws)
             return ws
         else:
             print(f"Sheet {name} not present")
@@ -52,9 +52,9 @@ class CWorkbook(Component):
 class CWorksheet(Component):
     def __init__(self, wsh: Worksheet):
         self.wsh = wsh
-        self.rows: List[CRow] = []
-        self.columns: List[CCol] = []
-        self.cells: List[CCell] = []
+        self.rows: SortedSet(CRow) = SortedSet()
+        self.columns: SortedSet(CCol) = SortedSet()
+        self.cells: SortedSet(CCell) = SortedSet()    
 
     def accept(self, visitor: Visitor) -> None:
         return visitor.visit_worksheet(self)
@@ -64,17 +64,17 @@ class CWorksheet(Component):
 
     def addRow(self, row: int) -> CRow:
         r = CRow(self.wsh, row)
-        self.rows.append(r)
+        self.rows.add(r)
         return r
 
     def addCol(self, col: int) -> CCol:
         c = CCol(self.wsh, col)
-        self.columns.append(c)
+        self.columns.add(c)
         return c
 
     def addCell(self, row: int, col: int) -> CCell:
         c = CCell(self.wsh, row, col)
-        self.cells.append(c)
+        self.cells.add(c)
         return c
     
     def __hash__(self):
@@ -104,6 +104,16 @@ class CRow(Component):
     def __eq__(self, other):
         if not isinstance(other, type(self)): return NotImplemented
         return self.sheet == other.sheet and self.i == other.i
+    
+    def __lt__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.i < other.i
+
+    def __str__(self):
+        return f"{self.i}"
+
+    def __repr__(self):
+        return f"{self.i}"
 
 
 class CCol(Component):
@@ -126,6 +136,16 @@ class CCol(Component):
     def __eq__(self, other):
         if not isinstance(other, type(self)): return NotImplemented
         return self.sheet == other.sheet and self.j == other.j
+
+    def __lt__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.j < other.j
+
+    def __str__(self):
+        return f"{self.j}"
+
+    def __repr__(self):
+        return f"{self.j}"
 
 class CCell(Component):
     def __init__(self, sheet: Worksheet, rownum: int, colnum: int, alias=""):
@@ -152,3 +172,20 @@ class CCell(Component):
     def __eq__(self, other):
         if not isinstance(other, type(self)): return NotImplemented
         return self.sheet == other.sheet and self.i == other.i and self.j == other.j
+
+    def __lt__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        if self.i < other.i:
+            return True
+        elif self.i == other.i: 
+            if self.j < other.j:
+                return True
+            return False
+        else:
+            return False
+
+    def __str__(self):
+        return f"({self.i},{self.j})"
+
+    def __repr__(self):
+        return f"({self.i},{self.j})"
