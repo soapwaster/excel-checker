@@ -36,8 +36,7 @@ def test_create_from_config():
     print(wkb)
 
 def test_load_from_config():
-    wkb = ic.create_structure("res/sources/test/Cars.xlsx", "res/custom-checks/config.yaml")
-    ic.load_checks(CheckerVisitor("res.custom-checks", "res/custom-checks/config.yaml"), wkb, "res/custom-checks/config.yaml")
+    ic.load_checks(CheckerVisitor("res.custom-checks", "res/custom-checks/config.yaml"), "res/custom-checks/config.yaml")
 
 
 '''def test_vehicle():
