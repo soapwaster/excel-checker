@@ -27,49 +27,56 @@ def create_structure(file, configFile):
                 for cell in sheet["Cells"]:
                     result = re.search(r"^\((\d+),(\d+)\)$", cell["cell"])
                     if result is not None:
-                        i = result.group(1)
-                        j = result.group(2)
+                        i = int(result.group(1))
+                        j = int(result.group(2))
                         ws.addCell(i,j)
     return wkb
 
-def load_checks(visitor, configFile):
+def load_checks(configFile):
     data = {}
+    wbc = []
+    wsc = {}
+    rc = {}
+    cc = {}
+    cellc = {}
     with open(configFile, "r") as yamlfile:
         data = yaml.load(yamlfile, Loader=yaml.FullLoader)
     if "Workbook" in data:
-        visitor.wbc = data["Workbook"]["checks"]
+        wbc = data["Workbook"]["checks"]
     if "Sheets" in data:
         for sheet in data["Sheets"]:
             sname = sheet["name"]
-            visitor.wsc[sname] = sheet["checks"]
+            wsc[sname] = sheet["checks"]
             if "Rows" in sheet:
-                visitor.rc[sname] = {}
+                rc[sname] = {}
                 for row in sheet["Rows"]:
                     for i in range(row["from"], row["to"]+1):
-                        val = visitor.rc[sname].get(i, [])
-                        visitor.rc[sname][i] = val
-                        visitor.rc[sname][i].extend(row["checks"])
+                        val = rc[sname].get(i, [])
+                        rc[sname][i] = val
+                        rc[sname][i].extend(row["checks"])
             if "Columns" in sheet:
-                visitor.cc[sname] = {}
+                cc[sname] = {}
                 for col in sheet["Columns"]:
                     for j in range(col["from"], col["to"]+1):
-                        val = visitor.cc[sname].get(j, [])
-                        visitor.cc[sname][j] = val
-                        visitor.cc[sname][j].extend(col["checks"])
+                        val = cc[sname].get(j, [])
+                        cc[sname][j] = val
+                        cc[sname][j].extend(col["checks"])
             if "Cells" in sheet:
-                visitor.cellc[sname] = {}
+                cellc[sname] = {}
                 for cell in sheet["Cells"]:
                     result = re.search(r"^\((\d+),(\d+)\)$", cell["cell"])
                     if result is not None:
                         i = result.group(1)
                         j = result.group(2)
-                        val = visitor.cellc[sname].get(cell["cell"], [])
-                        visitor.cellc[sname][cell["cell"]] = val
-                        visitor.cellc[sname][cell["cell"]].extend(cell["checks"])
-    print(visitor.wbc)
-    print(visitor.wsc)
-    print(visitor.rc)
-    print(visitor.cc)
-    print(visitor.cellc)
+                        val = cellc[sname].get(cell["cell"], [])
+                        cellc[sname][cell["cell"]] = val
+                        cellc[sname][cell["cell"]].extend(cell["checks"])
+
+    print(wbc)
+    print(wsc)
+    print(rc)
+    print(cc)
+    print(cellc)
     print("done")
+    return wbc, wsc, rc, cc, cellc
 

@@ -36,22 +36,11 @@ def test_create_from_config():
     print(wkb)
 
 def test_load_from_config():
-    ic.load_checks(CheckerVisitor("res.custom-checks", "res/custom-checks/config.yaml"), "res/custom-checks/config.yaml")
+    ic.load_checks("res/custom-checks/config.yaml")
 
 
-'''def test_vehicle():
+def test_vehicle():
 
-    excel_checker = ExcelChecker("res/sources/test/Cars.xlsx")
-
-    workbook = excel_checker.wrkbk
-
-    wc = CWorkbook(workbook)
-    ws1 = wc.addSheet("Cars")
-    ws2 = wc.addSheet("Pollo")
-    r1 = ws1.addRow(5)
-    r2 = ws1.addRow(6)
-    c1 = ws1.addCol(4)
-    c = ws1.addCell(6, 4)
-
+    wkb = ic.create_structure("res/sources/test/Cars.xlsx", "res/custom-checks/config.yaml")
     cv = CheckerVisitor("res.custom-checks", "res/custom-checks/config.yaml")
-    wc.accept(cv)'''
+    wkb.accept(cv)
