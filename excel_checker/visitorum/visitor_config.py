@@ -46,7 +46,7 @@ def load_checks(configFile):
     if "Sheets" in data:
         for sheet in data["Sheets"]:
             sname = sheet["name"]
-            wsc[sname] = sheet["checks"]
+            wsc[sname] = sheet.get("checks", [])
             if "Rows" in sheet:
                 rc[sname] = {}
                 for row in sheet["Rows"]:

@@ -42,3 +42,9 @@ def test_vehicle():
     wkb = ic.create_tree_structure("res/sources/test/Cars.xlsx", "res/custom-checks/config.yaml")
     cv = CheckerVisitor("res.custom-checks", "res/custom-checks/config.yaml")
     wkb.accept(cv)
+
+def test_dealer():
+
+    wkb = ic.create_tree_structure("res/sources/test/Car Dealer.xlsx", "res/custom-checks/config_dealer.yaml")
+    cv = CheckerVisitor("res.custom-checks", "res/custom-checks/config_dealer.yaml")
+    wkb.accept(cv)
