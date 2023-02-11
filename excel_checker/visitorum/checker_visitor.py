@@ -57,7 +57,7 @@ class CheckerVisitor(Visitor):
             try:
                 module = importlib.import_module(f"{self.pathToChecks}.{check}")
             except ModuleNotFoundError as e:
-                print(str(e) + " skipping check")
+                #print(str(e) + " skipping check")
                 continue
             class_ = getattr(module, check)
             instance = class_(
@@ -67,7 +67,7 @@ class CheckerVisitor(Visitor):
         return checks
 
     def load_checks(self):
-         self.wbc, self.wsc, self.rc, self.cc, self.cellc = ic.load_checks(self.checkConfig)
+        self.wbc, self.wsc, self.rc, self.cc, self.cellc = ic.load_checks(self.checkConfig)
 
     def run_checks(self, checks):
         val = {}

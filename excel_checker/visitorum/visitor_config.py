@@ -3,7 +3,7 @@ import re
 from excel_checker.excel_checker import ExcelChecker
 from excel_checker.visitorum.components import CWorkbook, CWorksheet
 
-def create_structure(file, configFile):
+def create_tree_structure(file, configFile):
     data = {}
     with open(configFile, "r") as yamlfile:
         data = yaml.load(yamlfile, Loader=yaml.FullLoader)
@@ -71,12 +71,5 @@ def load_checks(configFile):
                         val = cellc[sname].get(cell["cell"], [])
                         cellc[sname][cell["cell"]] = val
                         cellc[sname][cell["cell"]].extend(cell["checks"])
-
-    print(wbc)
-    print(wsc)
-    print(rc)
-    print(cc)
-    print(cellc)
-    print("done")
     return wbc, wsc, rc, cc, cellc
 
