@@ -1,4 +1,4 @@
-from excel_checker.visitorum.components import CWorkbook, CWorksheet, CRow
+from excel_checker.visitorum.components import CWorkbook, CWorksheet, CRow, CCell
 from excel_checker.visitorum.checker_visitor import CheckerVisitor
 from excel_checker import ExcelChecker
 from sortedcollections import SortedSet
@@ -26,21 +26,19 @@ def test_sets():
     ws1.addCell(6, 2)
     ws1.addCell(2, 4)
 
-
-    print(ws1.rows)
-    print(ws1.columns)
-    print(ws1.cells)
+def test_create_from_config():
+    wkb = ic.create_tree_structure("res/sources/test/Cars.xlsx", "res/custom-checks/config.yaml")
 
 def test_create_from_config():
-    wkb = ic.create_structure("res/sources/test/Cars.xlsx", "res/custom-checks/config.yaml")
-    print(wkb)
-
+    wkb = ic.create_tree_structure("res/sources/test/Cars.xlsx", "res/custom-checks/config_2.yaml")
+    assert "Casio" not in wkb.sheets
+    assert len(wkb.sheets) == 2
+    
 def test_load_from_config():
     ic.load_checks("res/custom-checks/config.yaml")
 
-
 def test_vehicle():
 
-    wkb = ic.create_structure("res/sources/test/Cars.xlsx", "res/custom-checks/config.yaml")
+    wkb = ic.create_tree_structure("res/sources/test/Cars.xlsx", "res/custom-checks/config.yaml")
     cv = CheckerVisitor("res.custom-checks", "res/custom-checks/config.yaml")
     wkb.accept(cv)

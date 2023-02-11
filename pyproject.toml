@@ -8,6 +8,7 @@ authors = ["soapwaster", "angelocatalani"]
 python = "^3.9"
 openpyxl = "^3.0.10"
 pyyaml = "^5.3.1"
+sortedcollections = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
