@@ -1,0 +1,8 @@
+Sheets:
+  [
+    {
+      name: New,
+      Rows: [{ from: 8, to: 10, checks: [R_LowMileage] }],
+      Columns: [{ from: 6, to: 6, checks: [C_Owner] }],
+    },
+  ]
