@@ -1,5 +1,5 @@
-name: 'Poetry Install'
-description: 'Poetry install'
+name: 'Build Application'
+description: 'Build the application with Poetry'
 runs:
   using: "composite"
   steps:
@@ -34,3 +34,4 @@ runs:
           if: steps.poetry-cache.outputs.cache-hit != 'true'
           run: poetry install --no-interaction --no-root
           shell: bash
+          
