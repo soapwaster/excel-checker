@@ -42,7 +42,7 @@ def load_checks(configFile):
     with open(configFile, "r") as yamlfile:
         data = yaml.load(yamlfile, Loader=yaml.FullLoader)
     if "Workbook" in data:
-        wbc = data["Workbook"]["checks"]
+        wbc = data["Workbook"].get("checks", [])
     if "Sheets" in data:
         for sheet in data["Sheets"]:
             sname = sheet["name"]

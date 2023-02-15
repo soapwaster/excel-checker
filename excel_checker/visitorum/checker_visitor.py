@@ -25,7 +25,7 @@ class CheckerVisitor(Visitor):
         val[f"WORKBOOK-CHECKS"] = self.run_checks(checks)
         for sheet in wbk.sheets:
             val[f"SHEET - {sheet.getTitle()}"] = sheet.accept(self)
-        print(val)
+        return val
 
     def visit_worksheet(self, wsh: CWorksheet) -> None:
         val = {}
@@ -62,7 +62,7 @@ class CheckerVisitor(Visitor):
             class_ = getattr(module, check)
             instance = class_(
                 element
-            )  # here i would add the element so that they are specific to the element
+            )
             checks.append(instance)
         return checks
 

@@ -25,9 +25,6 @@ class CWorkbook(Component):
     def accept(self, visitor: Visitor) -> None:
         return visitor.visit_workbook(self)
 
-    def getTitle(self) -> str:
-        return "Title still to give"
-
     def addSheet(self, name: str) -> CWorksheet:
         if name in self.wbk.sheetnames:
             ws = CWorksheet(self.wbk[name])
