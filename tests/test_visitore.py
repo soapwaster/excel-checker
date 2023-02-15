@@ -3,6 +3,7 @@ from excel_checker.visitorum.checker_visitor import CheckerVisitor
 from excel_checker import ExcelChecker
 from sortedcollections import SortedSet
 import excel_checker.visitorum.visitor_config as ic
+import json
 
 def test_sets():
 
@@ -47,4 +48,5 @@ def test_dealer():
 
     wkb = ic.create_tree_structure("res/sources/test/Car Dealer.xlsx", "res/custom-checks/config_dealer.yaml")
     cv = CheckerVisitor("res.custom-checks", "res/custom-checks/config_dealer.yaml")
-    wkb.accept(cv)
+    result = wkb.accept(cv)
+    print(json.dumps(result, indent=4))
