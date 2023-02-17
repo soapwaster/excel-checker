@@ -1,5 +1,6 @@
 from excel_checker.row_check import RowCheck
 
+
 class R_LowMileage(RowCheck):
     def _code(self):
         return "R_LowMileage"

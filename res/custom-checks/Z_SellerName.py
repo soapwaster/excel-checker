@@ -3,7 +3,6 @@ from excel_checker.visitorum.components import CCell
 
 
 class Z_SellerName(CellCheck):
-    
     def _code(self):
         return "SellerName"
 

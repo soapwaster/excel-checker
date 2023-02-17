@@ -3,6 +3,7 @@ import re
 from excel_checker.excel_checker import ExcelChecker
 from excel_checker.visitorum.components import CWorkbook, CWorksheet
 
+
 def create_tree_structure(file, configFile):
     data = {}
     with open(configFile, "r") as yamlfile:
@@ -15,18 +16,19 @@ def create_tree_structure(file, configFile):
         if ws is None:
             continue
         for row in sheet.get("Rows", []):
-            for i in range(row["from"], row["to"]+1):
+            for i in range(row["from"], row["to"] + 1):
                 ws.addRow(i)
         for col in sheet.get("Columns", []):
-            for j in range(col["from"], col["to"]+1):
+            for j in range(col["from"], col["to"] + 1):
                 ws.addCol(j)
         for cell in sheet.get("Cells", []):
             result = re.search(r"^\((\d+),(\d+)\)$", cell["cell"])
             if result is not None:
                 i = int(result.group(1))
                 j = int(result.group(2))
-                ws.addCell(i,j)
+                ws.addCell(i, j)
     return wkb
+
 
 def load_checks(configFile):
     data = {}
@@ -45,14 +47,14 @@ def load_checks(configFile):
         if "Rows" in sheet:
             rc[sname] = {}
             for row in sheet["Rows"]:
-                for i in range(row["from"], row["to"]+1):
+                for i in range(row["from"], row["to"] + 1):
                     val = rc[sname].get(i, [])
                     rc[sname][i] = val
                     rc[sname][i].extend(row["checks"])
         if "Columns" in sheet:
             cc[sname] = {}
             for col in sheet["Columns"]:
-                for j in range(col["from"], col["to"]+1):
+                for j in range(col["from"], col["to"] + 1):
                     val = cc[sname].get(j, [])
                     cc[sname][j] = val
                     cc[sname][j].extend(col["checks"])
@@ -67,4 +69,3 @@ def load_checks(configFile):
                     cellc[sname][cell["cell"]] = val
                     cellc[sname][cell["cell"]].extend(cell["checks"])
     return wbc, wsc, rc, cc, cellc
-

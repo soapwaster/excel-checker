@@ -6,6 +6,7 @@ from openpyxl.worksheet.worksheet import Worksheet
 from excel_checker.visitorum.visitor import Visitor
 from sortedcollections import SortedSet
 
+
 class Component(ABC):
     """
     The Component interface declares an `accept` method that should take the
@@ -42,7 +43,8 @@ class CWorkbook(Component):
         return hash((self.wbk))
 
     def __eq__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         return self.wbk == other.wbk
 
     def __str__(self):
@@ -57,12 +59,13 @@ class CWorkbook(Component):
             res += sheet.__repr__()
         return res
 
+
 class CWorksheet(Component):
     def __init__(self, wsh: Worksheet):
         self.wsh = wsh
         self.rows: SortedSet(CRow) = SortedSet()
         self.columns: SortedSet(CCol) = SortedSet()
-        self.cells: SortedSet(CCell) = SortedSet()    
+        self.cells: SortedSet(CCell) = SortedSet()
 
     def accept(self, visitor: Visitor) -> None:
         return visitor.visit_worksheet(self)
@@ -84,12 +87,13 @@ class CWorksheet(Component):
         c = CCell(self.wsh, row, col)
         self.cells.add(c)
         return c
-    
+
     def __hash__(self):
         return hash((self.wsh))
 
     def __eq__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         return self.wsh == other.wsh
 
     def __str__(self):
@@ -97,6 +101,7 @@ class CWorksheet(Component):
 
     def __repr__(self):
         return f"Sheet {self.getTitle()}:\n\tRows : {self.rows}\n\tColumns : {self.columns}\n\tCells : {self.cells}"
+
 
 class CRow(Component):
     def __init__(self, sheet: Worksheet, rownum: int):
@@ -111,16 +116,18 @@ class CRow(Component):
 
     def getColInRow(self, col: int) -> Any:
         return self.sheet.cell(self.i, col).value
-    
+
     def __hash__(self):
         return hash((self.sheet, self.i))
 
     def __eq__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         return self.sheet == other.sheet and self.i == other.i
-    
+
     def __lt__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         return self.i < other.i
 
     def __str__(self):
@@ -148,11 +155,13 @@ class CCol(Component):
         return hash((self.sheet, self.j))
 
     def __eq__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         return self.sheet == other.sheet and self.j == other.j
 
     def __lt__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         return self.j < other.j
 
     def __str__(self):
@@ -160,6 +169,7 @@ class CCol(Component):
 
     def __repr__(self):
         return f"{self.j}"
+
 
 class CCell(Component):
     def __init__(self, sheet: Worksheet, rownum: int, colnum: int, alias=""):
@@ -179,19 +189,21 @@ class CCell(Component):
 
     def getValue(self) -> Any:
         return self.sheet.cell(self.i, self.j).value
-    
+
     def __hash__(self):
         return hash((self.sheet, self.i, self.j))
 
     def __eq__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         return self.sheet == other.sheet and self.i == other.i and self.j == other.j
 
     def __lt__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
+        if not isinstance(other, type(self)):
+            return NotImplemented
         if self.i < other.i:
             return True
-        elif self.i == other.i: 
+        elif self.i == other.i:
             if self.j < other.j:
                 return True
             return False
