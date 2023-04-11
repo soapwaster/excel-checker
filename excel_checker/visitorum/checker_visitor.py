@@ -10,7 +10,6 @@ from excel_checker.visitorum.components import CWorkbook, CCell, CCol, CRow, CWo
 
 class CheckerVisitor(Visitor):
     def __init__(self, pathToChecks, checkConfig) -> None:
-    def __init__(self, pathToChecks, checkConfig) -> None:
         super().__init__()
         self.pathToChecks = pathToChecks  # it has to be a module
         self.checkConfig = checkConfig  # yaml file containing check configurations
@@ -50,15 +49,21 @@ class CheckerVisitor(Visitor):
         return val
 
     def visit_row(self, element: CRow) -> Any:
-        checks = self.__instantiate_checks(self.rc[element.sheet.title][element.i], element)
+        checks = self.__instantiate_checks(
+            self.rc[element.sheet.title][element.i], element
+        )
         return self.run_checks(checks)
 
     def visit_column(self, element: CCol) -> Any:
-        checks = self.__instantiate_checks(self.cc[element.sheet.title][element.j], element)
+        checks = self.__instantiate_checks(
+            self.cc[element.sheet.title][element.j], element
+        )
         return self.run_checks(checks)
 
     def visit_cell(self, element: CCell) -> Any:
-        checks = self.__instantiate_checks(self.cellc[element.sheet.title][f"({element.i},{element.j})"], element)
+        checks = self.__instantiate_checks(
+            self.cellc[element.sheet.title][f"({element.i},{element.j})"], element
+        )
         return self.run_checks(checks)
 
     def __instantiate_checks(self, type_of_checks, element):
@@ -67,17 +72,17 @@ class CheckerVisitor(Visitor):
             try:
                 module = importlib.import_module(f"{self.pathToChecks}.{check}")
             except ModuleNotFoundError as e:
-                #print(str(e) + " skipping check")
+                # print(str(e) + " skipping check")
                 continue
             class_ = getattr(module, check)
-            instance = class_(
-                element
-            )
+            instance = class_(element)
             checks.append(instance)
         return checks
 
     def load_checks(self):
-        self.wbc, self.wsc, self.rc, self.cc, self.cellc = ic.load_checks(self.checkConfig)
+        self.wbc, self.wsc, self.rc, self.cc, self.cellc = ic.load_checks(
+            self.checkConfig
+        )
 
     def run_checks(self, checks):
         val = {}
