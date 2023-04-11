@@ -17,7 +17,7 @@ class CheckerVisitor(Visitor):
         self.cc = {}
         self.cellc = {}
         self.res = {}
-        self.load_checks() #running this will cause the load_check to be executed twice. Once in the test, and once by the Constructor. I have to decide where to put it
+        self.load_checks()
 
     def visit_workbook(self, wbk: CWorkbook) -> None:
         val = {}

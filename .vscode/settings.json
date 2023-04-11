@@ -7,15 +7,15 @@
         "./res"
     ],
     "python.testing.pytestArgs": [
-        "test",
+        "tests",
         "-s"
     ],
     "terminal.integrated.env.osx": {
-        "PYTHONPATH": "${workspaceFolder}/src:${workspaceFolder}/test:${workspaceFolder}/res",
+        "PYTHONPATH": "${workspaceFolder}/src:${workspaceFolder}/tests:${workspaceFolder}/res",
         "WSF": "${workspaceFolder}"
     },
     "terminal.integrated.env.windows": {
-        "PYTHONPATH": "${workspaceFolder}\\src;${workspaceFolder}\\test",
+        "PYTHONPATH": "${workspaceFolder}\\src;${workspaceFolder}\\tests",
         "WSF": "${workspaceFolder}"
     },
     "python.testing.unittestEnabled": false,
