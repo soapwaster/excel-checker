@@ -1,0 +1,21 @@
+Workbook:
+    {name  : "Cars", checks : [WC]}
+Sheets:
+  [ {name : Cars,
+    checks : [C_02, C_05],
+    Rows :
+    [{from : 2, to : 10, checks : [C_01, C_09]},
+     {from : 3, to: 3, checks : [C_01]}],
+    Columns:
+    [{from : 4, to : 4, checks : [C_03]}, {from : 12, to : 34, checks : [CC1, CC2]}],
+    Cells:
+    [{cell: "(3,4)", checks : [C_04]}, {cell: "(32,4)", checks : [CC4]}] },
+    {name : Casio,
+    checks : [C_02, C_05],
+    Rows :
+    [{from : 2, to : 10, checks : [C_01, C_09]},
+     {from : 3, to: 3, checks : [C_01]}],
+    Columns:
+    [{from : 4, to : 4, checks : [C_03]}, {from : 12, to : 34, checks : [CC1, CC2]}],
+    Cells:
+    [{cell: "(3,4)", checks : [C_04]}, {cell: "(32,4)", checks : [CC4]}] }]
