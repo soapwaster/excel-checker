@@ -4,10 +4,15 @@ from excel_checker import ExcelChecker
 from sortedcollections import SortedSet
 import excel_checker.visitorum.visitor_config as ic
 import json
+from sortedcollections import SortedSet
+import excel_checker.visitorum.visitor_config as ic
+import json
 
 
 def test_sets():
+def test_sets():
 
+    rows: SortedSet(CRow) = SortedSet()
     excel_checker = ExcelChecker("res/sources/test/Cars.xlsx")
 
     workbook = excel_checker.wrkbk

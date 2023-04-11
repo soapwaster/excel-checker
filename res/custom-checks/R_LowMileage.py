@@ -1,5 +1,6 @@
 from excel_checker.row_check import RowCheck
 
+
 class R_LowMileage(RowCheck):
     def _code(self):
         return "R_LowMileage"
@@ -17,5 +18,7 @@ class R_LowMileage(RowCheck):
 
         if year > 2000 and kms > 120000:
             self.correct = False
+
+        return self.correct
 
         return self.correct

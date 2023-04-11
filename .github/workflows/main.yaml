@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - id: deploy
+      - id: build_application
         uses: ./.github/actions/poetry
 
       - name: Run test
@@ -28,9 +28,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - id: deploy
+      - id: build_application
         uses: ./.github/actions/poetry
 
       - name: Run formatter
         run: poetry run black --check .
-

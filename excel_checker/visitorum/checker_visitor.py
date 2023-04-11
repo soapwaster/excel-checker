@@ -2,22 +2,30 @@ import importlib
 from typing import Any
 import yaml
 import excel_checker.visitorum.visitor_config as ic
+import yaml
+import excel_checker.visitorum.visitor_config as ic
 from excel_checker.visitorum.visitor import Visitor
 from excel_checker.visitorum.components import CWorkbook, CCell, CCol, CRow, CWorksheet
 
 
 class CheckerVisitor(Visitor):
     def __init__(self, pathToChecks, checkConfig) -> None:
+    def __init__(self, pathToChecks, checkConfig) -> None:
         super().__init__()
         self.pathToChecks = pathToChecks  # it has to be a module
+        self.checkConfig = checkConfig  # yaml file containing check configurations
         self.checkConfig = checkConfig  # yaml file containing check configurations
         self.wbc = []
         self.wsc = {}
         self.rc = {}
         self.cc = {}
         self.cellc = {}
+        self.wsc = {}
+        self.rc = {}
+        self.cc = {}
+        self.cellc = {}
         self.res = {}
-        self.load_checks()
+        self.load_checks()  # running this will cause the load_check to be executed twice. Once in the test, and once by the Constructor. I have to decide where to put it
 
     def visit_workbook(self, wbk: CWorkbook) -> None:
         val = {}
@@ -26,9 +34,11 @@ class CheckerVisitor(Visitor):
         for sheet in wbk.sheets:
             val[f"SHEET - {sheet.getTitle()}"] = sheet.accept(self)
         return val
+        return val
 
     def visit_worksheet(self, wsh: CWorksheet) -> None:
         val = {}
+        checks = self.__instantiate_checks(self.wsc[wsh.getTitle()], wsh)
         checks = self.__instantiate_checks(self.wsc[wsh.getTitle()], wsh)
         val[f"SHEET-CHECKS"] = self.run_checks(checks)
         for row in wsh.rows:
